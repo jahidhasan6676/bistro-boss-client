@@ -10,9 +10,9 @@ const Navbar = () => {
 
     const handleLogOut = () => {
         signOutUser()
-         navigate("/login")
-            
-        
+        navigate("/login")
+
+
 
     }
 
@@ -60,9 +60,28 @@ const Navbar = () => {
             <div className="navbar-end">
                 {
                     user && user?.email ?
-                        <button onClick={handleLogOut} className="btn btn-success text-white">LogOut</button>
+
+                        <div className="flex gap-2">
+                            <div className="flex">
+                                <img  className="w-10 rounded-[100%]" src={user?.photoURL} alt="" />
+                                <div className="badge badge-secondary">+0</div>
+                            </div>
+                            <div>
+
+                                <button onClick={handleLogOut} className="btn btn-success text-white">LogOut</button>
+                            </div>
+                        </div>
+
                         :
-                        <button className="btn btn-success text-white"><Link to="/login">Login</Link></button>
+                        <div className="flex gap-2">
+                            <div className="flex">
+                                <img className="w-10 rounded-[100%]" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                <div className="badge badge-secondary">+0</div>
+                            </div>
+                            <button className="btn btn-success text-white"><Link to="/login">Login</Link></button>
+
+                        </div>
+
 
                 }
             </div>
