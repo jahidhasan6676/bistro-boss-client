@@ -2,19 +2,19 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import useCart from "../hooks/useCart";
 
 
 const Navbar = () => {
     const { user, signOutUser } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [cart, isLoading] = useCart();
 
     const handleLogOut = () => {
         signOutUser()
         navigate("/login")
-
-
-
     }
+   
 
 
     const links = <>
@@ -63,8 +63,10 @@ const Navbar = () => {
 
                         <div className="flex gap-2">
                             <div className="flex">
-                                <img  className="w-10 rounded-[100%]" src={user?.photoURL} alt="" />
-                                <div className="badge badge-secondary">+0</div>
+                                <img referrerPolicy="referrer" className="w-10 rounded-[100%]" src={user?.photoURL} alt="" />
+                                <Link to="/dashboard/cart">
+                                <div className="badge badge-secondary">+{cart.length}</div>
+                                </Link>
                             </div>
                             <div>
 
