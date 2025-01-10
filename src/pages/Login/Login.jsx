@@ -4,11 +4,12 @@ import { AuthContext } from '../../Provider/AuthProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
+import SocialLogin from '../../components/socialLogin/SocialLogin';
 
 const Login = () => {
-    
+
     const [disabled, setDisabled] = useState(true);
-    const { user, setUser, signInUser } = useContext(AuthContext);
+    const { user, setUser, signInUser, } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -47,7 +48,7 @@ const Login = () => {
                   `
                     }
                 });
-                navigate(from, {replace: true})
+                navigate(from, { replace: true })
 
             })
     }
@@ -97,14 +98,18 @@ const Login = () => {
                                 <label className="label">
                                     <LoadCanvasTemplate />
                                 </label>
-                                <input type="text" onBlur={handleValidateCaptcha}  name="captcha" placeholder="type the captcha above" className="input input-bordered" required />
-                                
+                                <input type="text" onBlur={handleValidateCaptcha} name="captcha" placeholder="type the captcha above" className="input input-bordered" required />
+
                             </div>
                             <div className="form-control mt-6">
                                 <input disabled={disabled} className="btn btn-primary" type="submit" value="Login" />
                             </div>
                         </form>
+                       
                         <p className='text-center'><small>New Here? <Link to="/signUp" className='hover:underline text-green-500'>SignUp</Link> </small></p>
+                        <div className='text-center'>
+                            <SocialLogin />
+                        </div>
                     </div>
                 </div>
             </div>

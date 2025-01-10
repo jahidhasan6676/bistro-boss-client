@@ -77,7 +77,7 @@ const Navbar = () => {
                         :
                         <div className="flex gap-2">
                             <div className="flex">
-                                <img className="w-10 rounded-[100%]" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                <img className="w-10 rounded-[100%]" referrerPolicy="no-referrer" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
                                 <div className="badge badge-secondary">+0</div>
                             </div>
                             <button className="btn btn-success text-white"><Link to="/login">Login</Link></button>

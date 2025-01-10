@@ -4,10 +4,13 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import SocialLogin from "../../components/socialLogin/SocialLogin";
 
 
 const SignUp = () => {
-    const {user,setUser,createUser,updateUserProfile} = useContext(AuthContext);
+    const axiosPublic = useAxiosPublic();
+    const { user, setUser, createUser, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
     const {
         register,
@@ -19,24 +22,36 @@ const SignUp = () => {
     const onSubmit = data => {
         console.log(data);
         createUser(data.email, data.password)
-        .then(result =>{
-            const loggedUser = result.user;
-            // setUser(loggedUser);
-            // console.log(loggedUser);
-            updateUserProfile(data.name, data.photo)
-            .then(()=>{
-                console.log("update user info user")
-                reset();
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Your Sign Up successfully",
-                    showConfirmButton: false,
-                    timer: 1500
-                  });
-                  navigate("/")
+            .then(result => {
+                const loggedUser = result.user;
+                // setUser(loggedUser);
+                // console.log(loggedUser);
+                updateUserProfile(data.name, data.photo)
+                    .then(() => {
+                        // create user entry in the database
+                       const userInfo = {
+                            name: data.name,
+                            email: data.email
+                        }
+                        axiosPublic.post("/users", userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log("user save in database")
+                                    console.log("update user info user")
+                                    reset();
+                                    Swal.fire({
+                                        position: "top-end",
+                                        icon: "success",
+                                        title: "Your Sign Up successfully",
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    navigate("/")
+                                }
+                            })
+
+                    })
             })
-        })
 
     }
 
@@ -68,7 +83,7 @@ const SignUp = () => {
                                 <label className="label">
                                     <span className="label-text">Photo URL</span>
                                 </label>
-                                <input type="url"  {...register('photo', { required: true })} name="photo"  placeholder="Photo URL" className="input input-bordered" required />
+                                <input type="url"  {...register('photo', { required: true })} name="photo" placeholder="Photo URL" className="input input-bordered" required />
                                 {errors.name && <p>Photo URL is required.</p>}
                             </div>
                             <div className="form-control">
@@ -90,7 +105,12 @@ const SignUp = () => {
 
                             </div>
                         </form>
+                        
                         <p className="text-center hover:underline "><small>Already SingUp? <Link to="/login" className="text-blue-500">Login</Link></small></p>
+
+                        <div className='text-center'>
+                            <SocialLogin />
+                        </div>
                     </div>
                 </div>
             </div>
