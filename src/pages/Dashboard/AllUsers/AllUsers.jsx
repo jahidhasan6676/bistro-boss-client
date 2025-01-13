@@ -6,11 +6,6 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
-//  {
-//     headers:{
-//         authorization: `Bearer ${localStorage.getItem("access-token")}`
-//     }
-// }
 
 
 const AllUsers = () => {
