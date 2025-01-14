@@ -9,7 +9,7 @@ const useMenu = () =>{
     
 
     //     useEffect(() => {
-    //         fetch('http://localhost:5000/menu')
+    //         fetch('https://bistro-boss-server-blush-mu.vercel.app/menu')
     //             .then(res => res.json())
     //             .then(data => {
                     
