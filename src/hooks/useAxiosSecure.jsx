@@ -7,7 +7,7 @@ const useAxiosSecure = () => {
     const {signOutUser} = useAuth();
 
     const axiosSecure = axios.create({
-        baseURL: "https://bistro-boss-server-blush-mu.vercel.app",
+        baseURL: "http://localhost:5000",
     });
 
      // request interceptor to add authorization header for every secure call to the api 
